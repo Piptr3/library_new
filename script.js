@@ -30,11 +30,22 @@ addBookToLibrary(book3);
 
 function displayBooks() {
     shelf.innerHTML = "";
-    myLibrary.forEach((book) => {
+    myLibrary.forEach((book, index) => {
         const newBook = document.createElement('div');
         newBook.textContent = book.info();
         newBook.classList.add('book');
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "delete";
+        deleteBtn.classList.add('delete');
+        shelf.appendChild(deleteBtn);
+
         shelf.appendChild(newBook);
+
+        deleteBtn.addEventListener('click', () => {
+            myLibrary.splice(index, 1);
+            displayBooks();
+        })
     });
 }
 
@@ -66,3 +77,5 @@ const cancelBtn = document.getElementById('cancel');
 cancelBtn.addEventListener('click', () => {
     dialog.close(); 
 });
+
+const buttons = document.querySelectorAll('.delete');
